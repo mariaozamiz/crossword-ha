@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #eef5dc;
+}
+
+.crossword {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 40px auto;
+}
+
+.cell {
+    border: 1px solid #063477;
+    background-color: #ffffff;
+}
+
+.cell-black {
+    background-color: #063477;
+}
+
+.word-number {
+    text-align: right;
+    font-size: 20px;
+    vertical-align: top;
+    position: fixed;
+    z-index: 1;
+    color: #063477;
+    font-family: Archia, Helvetica, Arial, sans-serif;
+}
+
+.letter {
+    height: 80px;
+    width: 80px;
+    border: none;
+
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+    color: #063477;
+    font-family: Archia, Helvetica, Arial, sans-serif;
+}
+
+.btn-group {
+    margin: 80px auto;
+    display: flex;
+    justify-content: space-evenly;
+}

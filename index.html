@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Crucigrama HA!</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <form>
+            <table class="crossword">
+                <tr class="row">
+                    <td class="cell">
+                        <span class="word-number">1</span>
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
+                            pattern="[Aa]"
+                        />
+                    </td>
+
+                    <td class="cell">
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
+                            pattern="[Aa]"
+                        />
+                    </td>
+                    <td class="cell cell-black"></td>
+                </tr>
+                <tr class="row">
+                    <td class="cell cell-black"></td>
+                    <td class="cell">
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
+                            pattern="[Bb]"
+                        />
+                    </td>
+
+                    <td class="cell">
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
+                            pattern="[Bb]"
+                        />
+                    </td>
+                </tr>
+            </table>
+            <div class="btn-group">
+                <button class="btn-clear">Borrar todo</button>
+            </div>
+        </form>
+        <script type="text/javascript" src="./main.js"></script>
+    </body>
+</html>
