@@ -1,15 +1,24 @@
-* {
+html {
     box-sizing: border-box;
+    color: inherit;
+    background-color: var(--green);
+}
+
+ul {
+    list-style: none;
+    padding-left: 0px;
 }
 
 :root {
     --green: #eef5dc;
     --blue: #063477;
     --colorerror: #063477;
+    --fontserif: Solitas, Cambria, Georgia, serif;
+    --fontenphatic: Archia, Helvetica, Arial, sans-serif;
 }
 
-html {
-    background-color: var(--green);
+.body {
+    height: 100vh;
 }
 
 .crossword {
@@ -34,7 +43,7 @@ html {
     position: fixed;
     z-index: 1;
     color: var(--blue);
-    font-family: Archia, Helvetica, Arial, sans-serif;
+    font-family: var(--fontenphatic);
 }
 
 .letter {
@@ -50,13 +59,23 @@ html {
 }
 
 .btn-group {
-    margin: 80px auto;
+    margin: 40px auto;
     display: flex;
     justify-content: space-evenly;
 }
 
-/*By default, --colorerror is blue. Changes to red when the user clicks "show errors" button */
-
 :invalid {
+    /*By default, --colorerror is blue. Changes to red when the user clicks "show errors" button */
     color: var(--colorerror);
+}
+
+.clues {
+    margin: 60px 50px;
+    align-content: center;
+    color: var(--blue);
+    font-family: var(--fontenphatic);
+}
+
+.clue {
+    font-family: var(--fontserif);
 }
