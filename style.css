@@ -2,8 +2,14 @@
     box-sizing: border-box;
 }
 
+:root {
+    --green: #eef5dc;
+    --blue: #063477;
+    --colorerror: #063477;
+}
+
 html {
-    background-color: #eef5dc;
+    background-color: var(--green);
 }
 
 .crossword {
@@ -13,12 +19,12 @@ html {
 }
 
 .cell {
-    border: 1px solid #063477;
+    border: 1px solid var(--blue);
     background-color: #ffffff;
 }
 
 .cell-black {
-    background-color: #063477;
+    background-color: var(--blue);
 }
 
 .word-number {
@@ -27,7 +33,7 @@ html {
     vertical-align: top;
     position: fixed;
     z-index: 1;
-    color: #063477;
+    color: var(--blue);
     font-family: Archia, Helvetica, Arial, sans-serif;
 }
 
@@ -39,7 +45,7 @@ html {
     text-align: center;
     text-transform: uppercase;
     font-size: 40px;
-    color: #063477;
+    color: var(--blue);
     font-family: Archia, Helvetica, Arial, sans-serif;
 }
 
@@ -47,4 +53,10 @@ html {
     margin: 80px auto;
     display: flex;
     justify-content: space-evenly;
+}
+
+/*By default, --colorerror is blue. Changes to red when the user clicks "show errors" button */
+
+:invalid {
+    color: var(--colorerror);
 }
