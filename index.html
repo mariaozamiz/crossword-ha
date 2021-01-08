@@ -17,6 +17,8 @@
                             type="text"
                             maxlength="1"
                             pattern="[Aa]"
+                            data-across="1"
+                            id="1"
                         />
                     </td>
 
@@ -27,6 +29,9 @@
                             type="text"
                             maxlength="1"
                             pattern="[Aa]"
+                            data-across="1"
+                            data-down="2"
+                            id="2"
                         />
                     </td>
                     <td class="cell cell-black"></td>
@@ -39,6 +44,9 @@
                             type="text"
                             maxlength="1"
                             pattern="[Bb]"
+                            data-across="2"
+                            data-down="2"
+                            id="3"
                         />
                     </td>
 
@@ -48,6 +56,8 @@
                             type="text"
                             maxlength="1"
                             pattern="[Bb]"
+                            data-across="2"
+                            id="4"
                         />
                     </td>
                 </tr>
@@ -60,11 +70,13 @@
         <section class="clues">
             <ul class="clues-across">
                 <strong>Horizontales</strong>
-                <li class="clue">1. Primera letra del abecedario (bis)</li>
+                <li class="clue" data-across="1">
+                    1. Primera letra del abecedario (bis)
+                </li>
             </ul>
             <ul class="clues-down">
                 <strong>Verticales</strong>
-                <li class="clue">2. Tipo de sangre</li>
+                <li class="clue" data-down="2">2. Tipo de sangre</li>
             </ul>
         </section>
         <script type="text/javascript" src="./main.js"></script>

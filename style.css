@@ -1,7 +1,8 @@
 html {
     box-sizing: border-box;
-    color: inherit;
     background-color: var(--green);
+    margin: 0;
+    padding: 0;
 }
 
 ul {
@@ -12,6 +13,7 @@ ul {
 :root {
     --green: #eef5dc;
     --blue: #063477;
+    --highlighter: #c3effc;
     --colorerror: #063477;
     --fontserif: Solitas, Cambria, Georgia, serif;
     --fontenphatic: Archia, Helvetica, Arial, sans-serif;
@@ -28,6 +30,7 @@ ul {
 }
 
 .cell {
+    padding: 0;
     border: 1px solid var(--blue);
     background-color: #ffffff;
 }
@@ -38,6 +41,7 @@ ul {
 
 .word-number {
     text-align: right;
+    padding-left: 4px;
     font-size: 20px;
     vertical-align: top;
     position: fixed;
@@ -78,4 +82,12 @@ ul {
 
 .clue {
     font-family: var(--fontserif);
+}
+
+.highlight {
+    background-color: var(--highlighter);
+}
+
+mark {
+    background-color: var(--highlighter);
 }
