@@ -1,10 +1,11 @@
 'use strict';
 const maxId = 12;
+let clicksNum = 0;
 let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
-const letters = document.querySelectorAll('.letter');
+const cells = document.querySelectorAll('.letter');
 const clues = document.querySelectorAll('.clue');
 const checkBtn = document.querySelector('.btn-check');
 
@@ -24,20 +25,23 @@ function showErrors(e) {
 }
 
 function handleClick(e) {
-    removeHighlights();
-    // check if we are at the same cell
     if (currentCellId === e.currentTarget.id) {
         across = !across;
+        handleFocus(e);
     }
+}
+
+function handleFocus(e) {
+    removeHighlighting();
     let selector = `[data-across="${e.currentTarget.dataset.across}"]`;
     if (!across) {
         selector = `[data-down="${e.currentTarget.dataset.down}"]`;
     }
-    //highlight related letters
-    const letters = document.querySelectorAll(`input${selector}`);
-    letters.forEach((letter) => letter.classList.add('highlight'));
+    //highlight cells
+    const cells = document.querySelectorAll(`input${selector}`);
+    cells.forEach((cell) => cell.classList.add('highlight'));
 
-    //highlight related clue
+    //highlight clue
     const clue = document.querySelector(`li${selector}`);
 
     if (clue) {
@@ -47,11 +51,11 @@ function handleClick(e) {
     currentCellId = e.currentTarget.id;
 }
 
-function removeHighlights() {
-    //remove highlight from letters
-    const highlightLetters = document.querySelectorAll('.highlight');
-    highlightLetters.forEach((letter) => letter.classList.remove('highlight'));
-    //remove highlight from text
+function removeHighlighting() {
+    //from crossword cells
+    const highlightCell = document.querySelectorAll('.highlight');
+    highlightCell.forEach((cell) => cell.classList.remove('highlight'));
+    //from clue
     const highlightClue = document.querySelector('.mark');
     if (highlightClue) {
         highlightClue.parentElement.innerHTML = clueText;
@@ -69,5 +73,6 @@ function handleKeyUp(ev) {
 }
 
 checkBtn.addEventListener('click', showErrors);
-letters.forEach((letter) => letter.addEventListener('click', handleClick));
-letters.forEach((letter) => letter.addEventListener('keyup', handleKeyUp));
+cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
+cells.forEach((cell) => cell.addEventListener('mousedown', handleClick));
+cells.forEach((cell) => cell.addEventListener('keyup', handleKeyUp));
