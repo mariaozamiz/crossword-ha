@@ -1,5 +1,6 @@
 'use strict';
-let currentCell = '';
+const maxId = 12;
+let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
@@ -25,7 +26,7 @@ function showErrors(e) {
 function handleClick(e) {
     removeHighlights();
     // check if we are at the same cell
-    if (currentCell === e.currentTarget.id) {
+    if (currentCellId === e.currentTarget.id) {
         across = !across;
     }
     let selector = `[data-across="${e.currentTarget.dataset.across}"]`;
@@ -43,7 +44,7 @@ function handleClick(e) {
         clueText = clue.innerHTML;
         clue.innerHTML = '<mark class="mark">' + clueText + '</mark>';
     }
-    currentCell = e.currentTarget.id;
+    currentCellId = e.currentTarget.id;
 }
 
 function removeHighlights() {
@@ -57,5 +58,16 @@ function removeHighlights() {
     }
 }
 
+function handleKeyUp(ev) {
+    let nextCellId = (parseInt(ev.currentTarget.id) % maxId) + 1;
+    let nextCell = document.getElementById(nextCellId);
+    while (!nextCell.hasAttribute('data-across')) {
+        nextCellId = (nextCellId % maxId) + 1;
+        nextCell = document.getElementById(nextCellId);
+    }
+    nextCell.focus();
+}
+
 checkBtn.addEventListener('click', showErrors);
 letters.forEach((letter) => letter.addEventListener('click', handleClick));
+letters.forEach((letter) => letter.addEventListener('keyup', handleKeyUp));

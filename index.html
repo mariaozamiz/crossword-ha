@@ -9,7 +9,7 @@
     <body>
         <form>
             <table class="crossword">
-                <tr class="row">
+                <tr class="row row-1">
                     <td class="cell">
                         <span class="word-number">1</span>
                         <input
@@ -34,19 +34,30 @@
                             id="2"
                         />
                     </td>
-                    <td class="cell cell-black"></td>
-                </tr>
-                <tr class="row">
-                    <td class="cell cell-black"></td>
+                    <td class="cell cell-black" id="3"></td>
                     <td class="cell">
                         <input
                             class="letter"
                             type="text"
                             maxlength="1"
+                            pattern="[Aa]"
+                            id="4"
+                        />
+                    </td>
+                </tr>
+
+                <tr class="row row-2">
+                    <td class="cell cell-black" id="5"></td>
+                    <td class="cell">
+                        <span class="word-number">3</span>
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
                             pattern="[Bb]"
-                            data-across="2"
+                            data-across="3"
                             data-down="2"
-                            id="3"
+                            id="6"
                         />
                     </td>
 
@@ -55,9 +66,41 @@
                             class="letter"
                             type="text"
                             maxlength="1"
-                            pattern="[Bb]"
-                            data-across="2"
-                            id="4"
+                            pattern="[Ee]"
+                            data-across="3"
+                            id="7"
+                        />
+                    </td>
+                    <td class="cell">
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
+                            pattern="[Ee]"
+                            data-across="3"
+                            id="8"
+                        />
+                    </td>
+                </tr>
+                <tr class="row row-3">
+                    <td class="cell cell-black" id="9"></td>
+                    <td class="cell cell-black" id="10"></td>
+                    <td class="cell">
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
+                            pattern="[Aa]"
+                            id="11"
+                        />
+                    </td>
+                    <td class="cell">
+                        <input
+                            class="letter"
+                            type="text"
+                            maxlength="1"
+                            pattern="[Aa]"
+                            id="12"
                         />
                     </td>
                 </tr>
@@ -73,6 +116,7 @@
                 <li class="clue" data-across="1">
                     1. Primera letra del abecedario (bis)
                 </li>
+                <li class="clue" data-across="3">3. Voz de la oveja</li>
             </ul>
             <ul class="clues-down">
                 <strong>Verticales</strong>
