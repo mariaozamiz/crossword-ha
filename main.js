@@ -1,6 +1,5 @@
 'use strict';
 const maxId = 12;
-let clicksNum = 0;
 let currentCellId = '';
 let errorShown = false;
 let across = true;
@@ -32,26 +31,55 @@ function handleClick(e) {
 }
 
 function handleFocus(e) {
-    removeHighlighting();
+    removeHighligh();
     let selector = `[data-across="${e.currentTarget.dataset.across}"]`;
     if (!across) {
         selector = `[data-down="${e.currentTarget.dataset.down}"]`;
     }
-    //highlight cells
+    addHighlight(selector);
+    currentCellId = e.currentTarget.id;
+}
+
+function handleKeyUp(ev) {
+    let nextCell = getNextCell(ev.currentTarget.id);
+    while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
+        nextCell = getNextCell(nextCell.id);
+    }
+    nextCell.focus();
+}
+
+checkBtn.addEventListener('click', showErrors);
+cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
+cells.forEach((cell) => cell.addEventListener('mousedown', handleClick));
+cells.forEach((cell) => cell.addEventListener('keyup', handleKeyUp));
+
+function getNextCell(id) {
+    let cellId = parseInt(id);
+    if (across) {
+        cellId = (cellId % maxId) + 1;
+    } else {
+        cellId += 4;
+        if (cellId > maxId) {
+            cellId = (cellId % maxId) + 1;
+            if (cellId > 4) cellId = 1;
+        }
+    }
+    return document.getElementById(cellId);
+}
+
+function addHighlight(selector) {
+    // at cells
     const cells = document.querySelectorAll(`input${selector}`);
     cells.forEach((cell) => cell.classList.add('highlight'));
-
-    //highlight clue
+    // at clue
     const clue = document.querySelector(`li${selector}`);
-
     if (clue) {
         clueText = clue.innerHTML;
         clue.innerHTML = '<mark class="mark">' + clueText + '</mark>';
     }
-    currentCellId = e.currentTarget.id;
 }
 
-function removeHighlighting() {
+function removeHighligh() {
     //from crossword cells
     const highlightCell = document.querySelectorAll('.highlight');
     highlightCell.forEach((cell) => cell.classList.remove('highlight'));
@@ -61,18 +89,3 @@ function removeHighlighting() {
         highlightClue.parentElement.innerHTML = clueText;
     }
 }
-
-function handleKeyUp(ev) {
-    let nextCellId = (parseInt(ev.currentTarget.id) % maxId) + 1;
-    let nextCell = document.getElementById(nextCellId);
-    while (!nextCell.hasAttribute('data-across')) {
-        nextCellId = (nextCellId % maxId) + 1;
-        nextCell = document.getElementById(nextCellId);
-    }
-    nextCell.focus();
-}
-
-checkBtn.addEventListener('click', showErrors);
-cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
-cells.forEach((cell) => cell.addEventListener('mousedown', handleClick));
-cells.forEach((cell) => cell.addEventListener('keyup', handleKeyUp));
