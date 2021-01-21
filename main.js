@@ -41,7 +41,16 @@ function handleFocus(e) {
 }
 
 function handleKeyUp(ev) {
-    let nextCell = getNextCell(ev.currentTarget.id);
+    let cellId = ev.currentTarget.id;
+    // avoid a a double jump when tabs is pressed
+    if (ev.keyCode === 9) {
+        cellId--;
+    }
+    // allow rewriting inputs
+    if (ev.currentTarget.value) {
+        console.log('aqui hay algo escrito', ev.currentTarget.value);
+    }
+    let nextCell = getNextCell(cellId);
     while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
         nextCell = getNextCell(nextCell.id);
     }
