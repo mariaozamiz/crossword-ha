@@ -23,7 +23,7 @@ ul {
     height: 100vh;
 }
 
-.crossword {
+.table {
     border-spacing: 0;
     border-collapse: collapse;
     margin: 40px auto;

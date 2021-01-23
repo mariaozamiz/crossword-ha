@@ -4,9 +4,10 @@ let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
-const cells = document.querySelectorAll('.letter');
-const clues = document.querySelectorAll('.clue');
-const checkBtn = document.querySelector('.btn-check');
+const table = d.get('.table');
+const cells = d.getAll('.letter');
+const clues = d.getAll('.clue');
+const checkBtn = d.get('.btn-check');
 
 function showErrors(e) {
     e.preventDefault();
@@ -24,7 +25,7 @@ function showErrors(e) {
 }
 
 function handleClick(e) {
-    if (currentCellId === e.currentTarget.id) {
+    if (currentCellId === e.target.id) {
         across = !across;
         handleFocus(e);
     }
@@ -32,35 +33,26 @@ function handleClick(e) {
 
 function handleFocus(e) {
     removeHighligh();
-    let selector = `[data-across="${e.currentTarget.dataset.across}"]`;
+    let selector = `[data-across="${e.target.dataset.across}"]`;
     if (!across) {
-        selector = `[data-down="${e.currentTarget.dataset.down}"]`;
+        selector = `[data-down="${e.target.dataset.down}"]`;
     }
     addHighlight(selector);
-    currentCellId = e.currentTarget.id;
+    currentCellId = e.target.id;
 }
 
-function handleKeyUp(ev) {
-    let cellId = ev.currentTarget.id;
-    // avoid a a double jump when tabs is pressed
-    if (ev.keyCode === 9) {
-        cellId--;
-    }
-    // allow rewriting inputs
-    if (ev.currentTarget.value) {
-        console.log('aqui hay algo escrito', ev.currentTarget.value);
-    }
+function handleWriting(e) {
+    let cellId = e.target.id;
     let nextCell = getNextCell(cellId);
     while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
         nextCell = getNextCell(nextCell.id);
     }
     nextCell.focus();
 }
-
 checkBtn.addEventListener('click', showErrors);
-cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
-cells.forEach((cell) => cell.addEventListener('mousedown', handleClick));
-cells.forEach((cell) => cell.addEventListener('keyup', handleKeyUp));
+table.addEventListener('input', handleWriting);
+table.addEventListener('mousedown', handleClick);
+d.on('focus', '.letter', handleFocus);
 
 function getNextCell(id) {
     let cellId = parseInt(id);
@@ -78,10 +70,13 @@ function getNextCell(id) {
 
 function addHighlight(selector) {
     // at cells
-    const cells = document.querySelectorAll(`input${selector}`);
-    cells.forEach((cell) => cell.classList.add('highlight'));
+    d.getAll(`input${selector}`).forEach((cell) =>
+        cell.classList.add('highlight')
+    );
+
     // at clue
-    const clue = document.querySelector(`li${selector}`);
+    const clue = d.getAll(`li${selector}`);
+    // clean following lines as soon as we have completed the crossword
     if (clue) {
         clueText = clue.innerHTML;
         clue.innerHTML = '<mark class="mark">' + clueText + '</mark>';
@@ -90,10 +85,13 @@ function addHighlight(selector) {
 
 function removeHighligh() {
     //from crossword cells
-    const highlightCell = document.querySelectorAll('.highlight');
-    highlightCell.forEach((cell) => cell.classList.remove('highlight'));
+    d.getAll('.highlight').forEach((cell) =>
+        cell.classList.remove('highlight')
+    );
+
     //from clue
-    const highlightClue = document.querySelector('.mark');
+    const highlightClue = d.get('.mark');
+    // clean following lines as soon as we have completed the crossword
     if (highlightClue) {
         highlightClue.parentElement.innerHTML = clueText;
     }
