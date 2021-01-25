@@ -17,6 +17,7 @@ function showErrors(e) {
             `var(--blue)`
         );
         errorShown = false;
+        checkBtn.innerHTML = `mostrar errores`;
     } else {
         document.documentElement.style.setProperty(`--colorerror`, `red`);
         errorShown = true;
@@ -43,11 +44,22 @@ function handleFocus(e) {
 
 function handleWriting(e) {
     let cellId = e.target.id;
-    let nextCell = getNextCell(cellId);
-    while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
-        nextCell = getNextCell(nextCell.id);
+    if (e.inputType === 'deleteContentBackward') {
+        let previousCell = getPreviousCell(cellId);
+        console.log(previousCell);
+        while (
+            !previousCell.hasAttribute(across ? 'data-across' : 'data-down')
+        ) {
+            previousCell = getPreviousCell(previousCell.id);
+        }
+        previousCell.focus();
+    } else {
+        let nextCell = getNextCell(cellId);
+        while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
+            nextCell = getNextCell(nextCell.id);
+        }
+        nextCell.focus();
     }
-    nextCell.focus();
 }
 checkBtn.addEventListener('click', showErrors);
 table.addEventListener('input', handleWriting);
@@ -63,6 +75,20 @@ function getNextCell(id) {
         if (cellId > maxId) {
             cellId = (cellId % maxId) + 1;
             if (cellId > 4) cellId = 1;
+        }
+    }
+    return document.getElementById(cellId);
+}
+
+function getPreviousCell(id) {
+    let cellId = parseInt(id);
+    if (across) {
+        cellId = (cellId % maxId) - 1;
+    } else {
+        cellId -= 4;
+        if (cellId > maxId) {
+            cellId = (cellId % maxId) - 1;
+            if (cellId < 4) cellId = 1;
         }
     }
     return document.getElementById(cellId);
@@ -88,7 +114,6 @@ function removeHighligh() {
     d.getAll('.highlight').forEach((cell) =>
         cell.classList.remove('highlight')
     );
-
     //from clue
     const highlightClue = d.get('.mark');
     // clean following lines as soon as we have completed the crossword

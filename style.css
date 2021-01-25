@@ -13,10 +13,11 @@ ul {
 :root {
     --green: #eef5dc;
     --blue: #063477;
+    --white: #ffffff;
     --highlighter: #c3effc;
     --colorerror: #063477;
     --fontserif: Solitas, Cambria, Georgia, serif;
-    --fontenphatic: Archia, Helvetica, Arial, sans-serif;
+    --fontsans: Archia, Helvetica, Arial, sans-serif;
 }
 
 .body {
@@ -26,13 +27,17 @@ ul {
 .table {
     border-spacing: 0;
     border-collapse: collapse;
-    margin: 40px auto;
+    margin: 40px auto 0px;
+}
+
+.mobile-clue {
+    margin: 5px auto 0px;
 }
 
 .cell {
     padding: 0;
     border: 1px solid var(--blue);
-    background-color: #ffffff;
+    background-color: var(--white);
 }
 
 .cell-black {
@@ -47,7 +52,7 @@ ul {
     position: fixed;
     z-index: 1;
     color: var(--blue);
-    font-family: var(--fontenphatic);
+    font-family: var(--fontsans);
 }
 
 .letter {
@@ -68,6 +73,24 @@ ul {
     justify-content: space-evenly;
 }
 
+.btn {
+    background-color: var(--white);
+    color: var(--blue);
+    font-family: var(--fontsans);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0px var(--blue);
+    padding: 8px;
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.btn:active {
+    transform: translate(2px, 2px);
+}
+
 :invalid {
     /*By default, --colorerror is blue. Changes to red when the user clicks "show errors" button */
     color: var(--colorerror);
@@ -77,7 +100,7 @@ ul {
     margin: 60px 50px;
     align-content: center;
     color: var(--blue);
-    font-family: var(--fontenphatic);
+    font-family: var(--fontsans);
 }
 
 .clue {
