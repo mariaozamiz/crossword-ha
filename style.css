@@ -56,15 +56,19 @@ ul {
 }
 
 .letter {
-    height: 80px;
-    width: 80px;
+    height: 38px;
+    width: 38px;
     border: none;
-
     text-align: center;
     text-transform: uppercase;
     font-size: 40px;
     color: var(--blue);
     font-family: Archia, Helvetica, Arial, sans-serif;
+
+    @media all and (min-width: 768px) {
+        height: 38px;
+        width: 38px;
+    }
 }
 
 .btn-group {
