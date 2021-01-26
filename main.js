@@ -4,10 +4,10 @@ let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
-const table = d.get('.table');
-const cells = d.getAll('.letter');
-const clues = d.getAll('.clue');
-const checkBtn = d.get('.btn-check');
+const table = document.querySelector('.table');
+const cells = document.querySelectorAll('.letter');
+const clues = document.querySelectorAll('.clue');
+const checkBtn = document.querySelector('.btn-check');
 
 function showErrors(e) {
     e.preventDefault();
@@ -64,7 +64,7 @@ function handleWriting(e) {
 checkBtn.addEventListener('click', showErrors);
 table.addEventListener('input', handleWriting);
 table.addEventListener('mousedown', handleClick);
-d.on('focus', '.letter', handleFocus);
+cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 
 function getNextCell(id) {
     let cellId = parseInt(id);
@@ -96,13 +96,11 @@ function getPreviousCell(id) {
 
 function addHighlight(selector) {
     // at cells
-    d.getAll(`input${selector}`).forEach((cell) =>
-        cell.classList.add('highlight')
-    );
+    const cells = document.querySelectorAll(`input${selector}`);
+    cells.forEach((cell) => cell.classList.add('highlight'));
 
     // at clue
-    const clue = d.getAll(`li${selector}`);
-    // clean following lines as soon as we have completed the crossword
+    const clue = document.querySelector(`li${selector}`);
     if (clue) {
         clueText = clue.innerHTML;
         clue.innerHTML = '<mark class="mark">' + clueText + '</mark>';
@@ -111,11 +109,10 @@ function addHighlight(selector) {
 
 function removeHighligh() {
     //from crossword cells
-    d.getAll('.highlight').forEach((cell) =>
-        cell.classList.remove('highlight')
-    );
+    const highlightCell = document.querySelectorAll('.highlight');
+    highlightCell.forEach((cell) => cell.classList.remove('highlight'));
     //from clue
-    const highlightClue = d.get('.mark');
+    const highlightClue = document.querySelector('.mark');
     // clean following lines as soon as we have completed the crossword
     if (highlightClue) {
         highlightClue.parentElement.innerHTML = clueText;
