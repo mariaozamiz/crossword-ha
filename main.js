@@ -113,7 +113,6 @@ function removeHighligh() {
     highlightCell.forEach((cell) => cell.classList.remove('highlight'));
     //from clue
     const highlightClue = document.querySelector('.mark');
-    // clean following lines as soon as we have completed the crossword
     if (highlightClue) {
         highlightClue.parentElement.innerHTML = clueText;
     }
