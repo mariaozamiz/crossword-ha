@@ -43,7 +43,7 @@ function handleFocus(e) {
 
 checkBtn.addEventListener('click', showErrors);
 table.addEventListener('mousedown', handleClick);
-cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
+// cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 
 function addHighlight(selector) {
     // at cells
