@@ -7,9 +7,9 @@ const table = document.querySelector('.table');
 const cells = document.querySelectorAll('.letter');
 const clues = document.querySelectorAll('.clue');
 const checkBtn = document.querySelector('.btn-check');
+const solveBtn = document.querySelector('.btn-solve');
 
-function showErrors(e) {
-    e.preventDefault();
+function showErrors() {
     if (errorShown) {
         document.documentElement.style.setProperty(
             `--colorerror`,
@@ -41,8 +41,13 @@ function handleFocus(e) {
     currentCellId = e.target.id;
 }
 
-checkBtn.addEventListener('click', showErrors);
+function solveCrossword() {
+    cells.forEach((cell) => (cell.value = cell.pattern.charAt(1)));
+}
+
 table.addEventListener('mousedown', handleClick);
+checkBtn.addEventListener('click', showErrors);
+solveBtn.addEventListener('click', solveCrossword);
 // cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 
 function addHighlight(selector) {
