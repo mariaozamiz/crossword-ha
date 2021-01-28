@@ -48,7 +48,7 @@ function solveCrossword() {
 table.addEventListener('mousedown', handleClick);
 checkBtn.addEventListener('click', showErrors);
 solveBtn.addEventListener('click', solveCrossword);
-// cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
+cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 
 function addHighlight(selector) {
     // at cells
