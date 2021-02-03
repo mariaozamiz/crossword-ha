@@ -3,11 +3,21 @@ let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
+let crossword = JSON.parse(localStorage.getItem('crossword')) || {};
+
 const table = document.querySelector('.table');
 const cells = document.querySelectorAll('.letter');
 const clues = document.querySelectorAll('.clue');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
+
+if (Object.keys(crossword).length > 0) {
+    const keysArr = Object.keys(crossword);
+    keysArr.forEach((key) => {
+        let cell = document.getElementById(key);
+        cell.value = crossword[key];
+    });
+}
 
 function showErrors() {
     if (errorShown) {
@@ -30,6 +40,9 @@ function handleClick(e) {
         handleFocus(e);
     }
 }
+const animar = (persoa) => {
+    console.log(`Ánimo ${persoa}! Es a mellor <3`);
+};
 
 function handleFocus(e) {
     removeHighligh();
@@ -45,7 +58,13 @@ function solveCrossword() {
     cells.forEach((cell) => (cell.value = cell.pattern.charAt(1)));
 }
 
+function handleWriting(e) {
+    saveCrossword(e);
+    animar('pichurra');
+}
+
 table.addEventListener('mousedown', handleClick);
+table.addEventListener('input', handleWriting);
 checkBtn.addEventListener('click', showErrors);
 solveBtn.addEventListener('click', solveCrossword);
 cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
@@ -72,4 +91,13 @@ function removeHighligh() {
     if (highlightClue) {
         highlightClue.parentElement.innerHTML = clueText;
     }
+}
+
+function saveCrossword(e) {
+    const id = e.target.id;
+    const letter = e.target.value;
+    //crossword object: id as key, letter as value
+    crossword[id] = letter;
+    console.log(crossword);
+    localStorage.setItem('crossword', JSON.stringify(crossword));
 }
