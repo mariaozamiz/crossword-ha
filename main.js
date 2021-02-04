@@ -11,13 +11,7 @@ const clues = document.querySelectorAll('.clue');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
 
-if (Object.keys(crossword).length > 0) {
-    const keysArr = Object.keys(crossword);
-    keysArr.forEach((key) => {
-        let cell = document.getElementById(key);
-        cell.value = crossword[key];
-    });
-}
+startGame();
 
 function showErrors() {
     if (errorShown) {
@@ -100,4 +94,15 @@ function saveCrossword(e) {
     crossword[id] = letter;
     console.log(crossword);
     localStorage.setItem('crossword', JSON.stringify(crossword));
+}
+
+function startGame() {
+    //check and paint localStorage data in DOM
+    if (Object.keys(crossword).length > 0) {
+        const keysArr = Object.keys(crossword);
+        keysArr.forEach((key) => {
+            let cell = document.getElementById(key);
+            cell.value = crossword[key];
+        });
+    }
 }
