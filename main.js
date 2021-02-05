@@ -3,8 +3,13 @@ let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
+let timer = {};
+let count = 0;
+let totalSeconds = 0;
 let crossword = JSON.parse(localStorage.getItem('crossword')) || {};
 
+const minutes = document.querySelector('.minutes');
+const seconds = document.querySelector('.seconds');
 const table = document.querySelector('.table');
 const cells = document.querySelectorAll('.letter');
 const clues = document.querySelectorAll('.clue');
@@ -34,9 +39,6 @@ function handleClick(e) {
         handleFocus(e);
     }
 }
-const animar = (persoa) => {
-    console.log(`Ánimo ${persoa}! Es a mellor <3`);
-};
 
 function handleFocus(e) {
     removeHighligh();
@@ -54,7 +56,9 @@ function solveCrossword() {
 
 function handleWriting(e) {
     saveCrossword(e);
-    animar('pichurra');
+    if (count === 0) {
+        startTimer();
+    }
 }
 
 table.addEventListener('mousedown', handleClick);
@@ -104,5 +108,25 @@ function startGame() {
             let cell = document.getElementById(key);
             cell.value = crossword[key];
         });
+    }
+}
+
+function startTimer() {
+    count = 1;
+    setInterval(setTime, 1000);
+}
+
+function setTime() {
+    ++totalSeconds;
+    seconds.innerHTML = pad(totalSeconds % 60);
+    minutes.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+    var valString = val + '';
+    if (valString.length < 2) {
+        return '0' + valString;
+    } else {
+        return valString;
     }
 }

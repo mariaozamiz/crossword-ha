@@ -50,6 +50,15 @@ ul {
     margin: auto;
 }
 
+.timer {
+    position: relative;
+    font-family: var(--fontsans);
+    text-align: center;
+    font-size: 18px;
+    margin-right: 5px;
+    display: block;
+}
+
 .table {
     border-spacing: 0;
     border-collapse: collapse;
@@ -103,6 +112,7 @@ ul {
     border-radius: 5px;
     box-shadow: 5px 5px 0px var(--blue);
     padding: 8px;
+    cursor: pointer;
 }
 
 .btn:focus {
@@ -154,6 +164,9 @@ mark {
     }
     .word-number {
         font-size: 11px;
+    }
+    .timer {
+        font-size: 25px;
     }
 }
 @media all and (min-width: 1280px) {

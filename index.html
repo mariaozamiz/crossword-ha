@@ -17,7 +17,12 @@
             </p>
         </header>
         <main class="main">
-            <form class="form wrapper" autocomplete="off">
+            <form class="form wrapper" autocomplete="off" method="post">
+                <div class="timer">
+                    <span class="minutes">00</span>:<span class="seconds"
+                        >00</span
+                    >
+                </div>
                 <table class="table">
                     <tr class="row row-1">
                         <td class="cell cell-black" id="1"></td>
@@ -31,7 +36,6 @@
                                 pattern="[Mm]"
                                 data-across="1"
                                 data-down="1"
-                                required
                             />
                         </td>
                         <td class="cell">
@@ -44,7 +48,6 @@
                                 pattern="[Ee]"
                                 data-across="1"
                                 data-down="2"
-                                required
                             />
                         </td>
                         <td class="cell">
@@ -57,7 +60,6 @@
                                 pattern="[Ss]"
                                 data-across="1"
                                 data-down="3"
-                                required
                             />
                         </td>
                         <td class="cell cell-black" id="5"></td>
