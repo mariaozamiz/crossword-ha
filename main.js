@@ -1,4 +1,5 @@
 'use strict';
+const maxId = 168;
 let currentCellId = '';
 let errorShown = false;
 let across = true;
@@ -58,6 +59,23 @@ function handleWriting(e) {
     saveCrossword(e);
     if (count === 0) {
         startTimer();
+    }
+    let cellId = e.target.id;
+    if (e.inputType === 'deleteContentBackward') {
+        let previousCell = getPreviousCell(cellId);
+        console.log(previousCell);
+        while (
+            !previousCell.hasAttribute(across ? 'data-across' : 'data-down')
+        ) {
+            previousCell = getPreviousCell(previousCell.id);
+        }
+        previousCell.focus();
+    } else {
+        let nextCell = getNextCell(cellId);
+        while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
+            nextCell = getNextCell(nextCell.id);
+        }
+        nextCell.focus();
     }
 }
 
@@ -133,4 +151,32 @@ function pad(val) {
     } else {
         return valString;
     }
+}
+
+function getNextCell(id) {
+    let cellId = parseInt(id);
+    if (across) {
+        cellId = (cellId % maxId) + 1;
+    } else {
+        cellId += 12;
+        if (cellId > maxId) {
+            cellId = (cellId % maxId) + 1;
+            if (cellId > 12) cellId = 1;
+        }
+    }
+    return document.getElementById(cellId);
+}
+
+function getPreviousCell(id) {
+    let cellId = parseInt(id);
+    if (across) {
+        cellId = (cellId % maxId) - 1;
+    } else {
+        cellId -= 12;
+        if (cellId < maxId) {
+            cellId = (cellId % maxId) - 1;
+            if (cellId < 12) cellId = 1;
+        }
+    }
+    return document.getElementById(cellId);
 }
