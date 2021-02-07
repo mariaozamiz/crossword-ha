@@ -5,7 +5,7 @@ let across = true;
 let clueText;
 let timer = {};
 let count = 0;
-let totalSeconds = 0;
+let totalSeconds = JSON.parse(localStorage.getItem('timer')) || 0;
 let crossword = JSON.parse(localStorage.getItem('crossword')) || {};
 
 const minutes = document.querySelector('.minutes');
@@ -94,10 +94,11 @@ function removeHighligh() {
 function saveCrossword(e) {
     const id = e.target.id;
     const letter = e.target.value;
-    //crossword object: id as key, letter as value
+    //save crossword object: id as key, letter as value
     crossword[id] = letter;
-    console.log(crossword);
     localStorage.setItem('crossword', JSON.stringify(crossword));
+    //save crossword timer
+    localStorage.setItem('timer', JSON.stringify(totalSeconds));
 }
 
 function startGame() {
@@ -108,6 +109,9 @@ function startGame() {
             let cell = document.getElementById(key);
             cell.value = crossword[key];
         });
+    }
+    if (totalSeconds > 0) {
+        setTime();
     }
 }
 
