@@ -4,10 +4,10 @@ let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
-let timer = {};
-let count = 0;
+let start = false;
 let totalSeconds = JSON.parse(localStorage.getItem('timer')) || 0;
 let crossword = JSON.parse(localStorage.getItem('crossword')) || {};
+let timer;
 
 const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
@@ -16,6 +16,7 @@ const cells = document.querySelectorAll('.letter');
 const clues = document.querySelectorAll('.clue');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
+const clearBtn = document.querySelector('.btn-clear');
 
 startGame();
 
@@ -55,9 +56,18 @@ function solveCrossword() {
     cells.forEach((cell) => (cell.value = cell.pattern.charAt(1)));
 }
 
+function clearGame() {
+    window.localStorage.clear();
+    removeHighligh();
+    totalSeconds = -1;
+    clearInterval(timer);
+    start = false;
+    setTime();
+}
+
 function handleWriting(e) {
     saveCrossword(e);
-    if (count === 0) {
+    if (!start) {
         startTimer();
     }
     let cellId = e.target.id;
@@ -79,10 +89,35 @@ function handleWriting(e) {
     }
 }
 
+function handleKeyUp(e) {
+    let cellId = e.target.id;
+    if (e.key === 'ArrowDown') {
+        console.log('quiero bajar');
+        let nextCellId = parseInt(cellId) + 12;
+        const cell = document.getElementById(nextCellId);
+        cell.focus();
+        if (nextCellId > maxId) {
+            return;
+        }
+    }
+}
+
+// if (e.key === 'ArrowUp') {
+//     console.log('quiero subir');
+// }
+// if (e.key === 'ArrowLeft') {
+//     console.log('quiero atrás');
+// }
+// if (e.key === 'ArrowRight') {
+//     console.log('quiero adelante');
+// }
+
 table.addEventListener('mousedown', handleClick);
 table.addEventListener('input', handleWriting);
+table.addEventListener('keyup', handleKeyUp);
 checkBtn.addEventListener('click', showErrors);
 solveBtn.addEventListener('click', solveCrossword);
+clearBtn.addEventListener('click', clearGame);
 cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 
 function addHighlight(selector) {
@@ -134,8 +169,8 @@ function startGame() {
 }
 
 function startTimer() {
-    count = 1;
-    setInterval(setTime, 1000);
+    start = true;
+    timer = setInterval(setTime, 1000);
 }
 
 function setTime() {
