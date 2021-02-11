@@ -72,25 +72,27 @@ function handleWriting(e) {
     }
     let cellId = e.target.id;
     if (e.inputType === 'deleteContentBackward') {
+        return;
+    }
+    let nextCell = getNextCell(cellId);
+    while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
+        nextCell = getNextCell(nextCell.id);
+    }
+    nextCell.focus();
+}
+
+function handleKeyUp(e) {
+    let cellId = e.target.id;
+    if (e.key === 'Backspace') {
         let previousCell = getPreviousCell(cellId);
-        console.log(previousCell);
         while (
             !previousCell.hasAttribute(across ? 'data-across' : 'data-down')
         ) {
             previousCell = getPreviousCell(previousCell.id);
         }
         previousCell.focus();
-    } else {
-        let nextCell = getNextCell(cellId);
-        while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
-            nextCell = getNextCell(nextCell.id);
-        }
-        nextCell.focus();
+        console.log('Foco en ', previousCell);
     }
-}
-
-function handleKeyUp(e) {
-    let cellId = e.target.id;
     if (e.key === 'ArrowDown') {
         console.log('quiero bajar');
         let nextCellId = parseInt(cellId) + 12;
@@ -123,7 +125,10 @@ cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 function addHighlight(selector) {
     // at cells
     const cells = document.querySelectorAll(`input${selector}`);
-    cells.forEach((cell) => cell.classList.add('highlight'));
+    cells.forEach((cell) => {
+        cell.classList.add('highlight');
+        cell.parentElement.classList.add('highlight');
+    });
 
     // at clue
     const clue = document.querySelector(`li${selector}`);
