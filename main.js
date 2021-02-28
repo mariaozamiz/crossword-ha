@@ -215,7 +215,7 @@ function addHighlight(selector) {
     if (clue) {
         clueText = clue.innerHTML;
         clue.innerHTML = '<mark class="mark">' + clueText + '</mark>';
-        clue.scrollIntoView();
+        clue.scrollIntoView({ block: 'center' });
     }
 }
 
