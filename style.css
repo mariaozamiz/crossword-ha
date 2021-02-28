@@ -129,6 +129,9 @@ ul {
 .clues {
     margin: 30px 50px;
     align-content: center;
+    max-height: 800px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
     color: var(--blue);
     font-family: var(--fontsans);
 }
