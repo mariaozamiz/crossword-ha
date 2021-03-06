@@ -115,7 +115,10 @@ function handleWriting(e) {
         return;
     }
     let nextCell = getNextCell(cellId);
-    while (!nextCell.hasAttribute(across ? 'data-across' : 'data-down')) {
+    while (
+        !nextCell.hasAttribute(across ? 'data-across' : 'data-down') ||
+        nextCell.value
+    ) {
         nextCell = getNextCell(nextCell.id);
     }
     nextCell.focus();
@@ -173,9 +176,9 @@ function getPreviousCell(id) {
         cellId = (cellId % maxId) - 1;
     } else {
         cellId -= 12;
-        if (cellId < maxId) {
-            cellId = (cellId % maxId) - 1;
-            if (cellId < 12) cellId = 1;
+        if (cellId <= 0) {
+            cellId += maxId - 1;
+            if (cellId == 156) cellId = 168;
         }
     }
     return document.getElementById(cellId);
