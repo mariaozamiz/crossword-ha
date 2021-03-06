@@ -136,25 +136,34 @@ function handleKeyUp(e) {
         previousCell.focus();
     }
     if (e.key === 'ArrowDown') {
-        console.log('quiero bajar');
         let nextCellId = parseInt(cellId) + 12;
         const cell = document.getElementById(nextCellId);
-        cell.focus();
-        if (nextCellId > maxId) {
-            return;
+        if (cell) {
+            cell.focus();
+        }
+    }
+    if (e.key === 'ArrowRight') {
+        let nextCellId = parseInt(cellId) + 1;
+        const cell = document.getElementById(nextCellId);
+        if (cell.dataset.across === e.target.dataset.across) {
+            cell.focus();
+        }
+    }
+    if (e.key === 'ArrowUp') {
+        let nextCellId = parseInt(cellId) - 12;
+        const cell = document.getElementById(nextCellId);
+        if (cell) {
+            cell.focus();
+        }
+    }
+    if (e.key === 'ArrowLeft') {
+        let nextCellId = parseInt(cellId) - 1;
+        const cell = document.getElementById(nextCellId);
+        if (cell.dataset.across === e.target.dataset.across) {
+            cell.focus();
         }
     }
 }
-
-// if (e.key === 'ArrowUp') {
-//     console.log('quiero subir');
-// }
-// if (e.key === 'ArrowLeft') {
-//     console.log('quiero atrás');
-// }
-// if (e.key === 'ArrowRight') {
-//     console.log('quiero adelante');
-// }
 
 function getNextCell(id) {
     let cellId = parseInt(id);
