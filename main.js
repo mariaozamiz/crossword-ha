@@ -13,6 +13,7 @@ let start = false;
 let totalSeconds = JSON.parse(localStorage.getItem('timer')) || 0;
 let crossword = JSON.parse(localStorage.getItem('crossword')) || {};
 let timer;
+let score = 0;
 
 const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
@@ -22,6 +23,7 @@ const clues = document.querySelectorAll('.clue');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
 const clearBtn = document.querySelector('.btn-clear');
+const form = document.querySelector('.form');
 
 /*************************
  *       Listeners       *
@@ -76,6 +78,7 @@ function showErrors() {
 
 function solveCrossword() {
     cells.forEach((cell) => (cell.value = cell.pattern.charAt(1)));
+    checkForm();
 }
 
 function clearGame() {
@@ -107,6 +110,10 @@ function saveCrossword(e) {
 
 function handleWriting(e) {
     saveCrossword(e);
+    keepScore(e);
+    if (checkForm()) {
+        return;
+    }
     if (!start) {
         startTimer();
     }
@@ -264,4 +271,20 @@ function pad(val) {
     } else {
         return valString;
     }
+}
+
+/*************************
+ *         Score         *
+ *************************/
+
+function keepScore(e) {
+    e.target.validity.valid ? (score += 10) : (score -= 5);
+    console.log(score);
+}
+
+function checkForm() {
+    if (form.checkValidity()) {
+        alert('parabéns');
+    }
+    return form.checkValidity();
 }
