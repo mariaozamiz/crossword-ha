@@ -23,7 +23,12 @@ const clues = document.querySelectorAll('.clue');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
 const clearBtn = document.querySelector('.btn-clear');
+const shareBtn = document.querySelector('.btn-share');
+const closeBtn = document.querySelector('.dialog-close-btn');
+const dialog = document.querySelector('.dialog');
+dialogPolyfill.registerDialog(dialog);
 const form = document.querySelector('.form');
+const scoreText = document.querySelector('.score');
 
 /*************************
  *       Listeners       *
@@ -35,6 +40,8 @@ table.addEventListener('keyup', handleKeyUp);
 checkBtn.addEventListener('click', showErrors);
 solveBtn.addEventListener('click', solveCrossword);
 clearBtn.addEventListener('click', clearGame);
+shareBtn.addEventListener('click', shareOnTwitter);
+closeBtn.addEventListener('click', () => dialog.close());
 cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 
 /*************************
@@ -88,6 +95,10 @@ function clearGame() {
     clearInterval(timer);
     start = false;
     setTime();
+}
+
+function shareOnTwitter() {
+    console.log('compartes');
 }
 
 /*************************
@@ -279,12 +290,16 @@ function pad(val) {
 
 function keepScore(e) {
     e.target.validity.valid ? (score += 10) : (score -= 5);
-    console.log(score);
+    if (score < 500) {
+        scoreText.innerHTML = 'Mal';
+    } else {
+        scoreText.innerHTML = 'Bien';
+    }
 }
 
 function checkForm() {
     if (form.checkValidity()) {
-        alert('parabéns');
+        dialog.showModal();
     }
     return form.checkValidity();
 }

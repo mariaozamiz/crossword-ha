@@ -4,6 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Crucigrama HA!</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="assets/polyfill/dialog-polyfill.css"
+        />
         <link rel="stylesheet" href="style.css" />
     </head>
     <body class="body">
@@ -17,6 +22,26 @@
             </p>
         </header>
         <main class="main">
+            <dialog class="dialog">
+                <button class="dialog-close-btn">
+                    <img
+                        src="./assets/img/close.svg"
+                        class="close-img"
+                        alt="cerrar ventana"
+                    />
+                </button>
+                <h1 class="dialog-title">¡Enhorabuena! <br /></h1>
+                <p class="dialog-text">
+                    <strong>
+                        Has completado el crucigrama con nivel
+                        <br />
+                        <span class="score"></span>
+                        <br />
+                        ¡Comparte tu resultado en Twitter!:</strong
+                    >
+                </p>
+                <button class="btn btn-share" type="button">Comparte</button>
+            </dialog>
             <div class="form-panel">
                 <div class="timer">
                     <span class="minutes">00</span>:<span class="seconds"
@@ -30,6 +55,7 @@
                             <td class="cell">
                                 <label class="word-number" for="2">1</label>
                                 <input
+                                    required
                                     id="2"
                                     class="letter"
                                     type="text"
@@ -1812,6 +1838,7 @@
                 </ul>
             </section>
         </main>
+        <script src="assets/polyfill/dialog-polyfill.js"></script>
         <script type="text/javascript" src="./main.js"></script>
     </body>
 </html>

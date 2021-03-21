@@ -51,6 +51,37 @@ ul {
     margin: auto;
 }
 
+.dialog {
+    background-color: var(--green);
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    font-family: var(--fontsans);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    z-index: 2;
+}
+
+.dialog-close-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.dialog-close-btn > img {
+    width: 1.2rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1em;
+}
+
+.btn-share {
+    max-width: 5rem;
+    margin: auto;
+}
+
 .timer {
     position: relative;
     font-family: var(--fontsans);
