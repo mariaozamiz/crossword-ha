@@ -5,6 +5,7 @@
  *************************/
 
 const maxId = 168;
+let firstIdCell = 2;
 let currentCellId = '';
 let errorShown = false;
 let across = true;
@@ -13,7 +14,8 @@ let start = false;
 let totalSeconds = JSON.parse(localStorage.getItem('timer')) || 0;
 let crossword = JSON.parse(localStorage.getItem('crossword')) || {};
 let timer;
-let score = 0;
+let errors = JSON.parse(localStorage.getItem('errors')) || 0;
+let score = JSON.parse(localStorage.getItem('score')) || 0;
 
 const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
@@ -80,6 +82,7 @@ function showErrors() {
         document.documentElement.style.setProperty(`--colorerror`, `red`);
         errorShown = true;
         checkBtn.innerHTML = `ocultar errores`;
+        scoreDown();
     }
 }
 
@@ -111,8 +114,10 @@ function saveCrossword(e) {
     //save crossword object: id as key, letter as value
     crossword[id] = letter;
     localStorage.setItem('crossword', JSON.stringify(crossword));
-    //save crossword timer
+    //save crossword timer, score and errors
     localStorage.setItem('timer', JSON.stringify(totalSeconds));
+    localStorage.setItem('score', JSON.stringify(score));
+    localStorage.setItem('errors', JSON.stringify(errors));
 }
 
 /*************************
@@ -121,7 +126,7 @@ function saveCrossword(e) {
 
 function handleWriting(e) {
     saveCrossword(e);
-    keepScore(e);
+    checkInput(e);
     if (checkForm()) {
         return;
     }
@@ -147,7 +152,8 @@ function handleKeyUp(e) {
     if (e.key === 'Backspace') {
         let previousCell = getPreviousCell(cellId);
         while (
-            !previousCell.hasAttribute(across ? 'data-across' : 'data-down')
+            !previousCell.hasAttribute(across ? 'data-across' : 'data-down') &&
+            previousCell.id > firstIdCell
         ) {
             previousCell = getPreviousCell(previousCell.id);
         }
@@ -288,18 +294,32 @@ function pad(val) {
  *         Score         *
  *************************/
 
-function keepScore(e) {
-    e.target.validity.valid ? (score += 10) : (score -= 5);
-    if (score < 500) {
-        scoreText.innerHTML = 'Mal';
+function checkInput(e) {
+    if (e.target.validity.valid) {
+        scoreUp();
     } else {
-        scoreText.innerHTML = 'Bien';
+        countError();
+        if (errorShown) scoreDown();
     }
+}
+
+function scoreDown() {
+    score -= errors * 5;
+    errors = 0;
 }
 
 function checkForm() {
     if (form.checkValidity()) {
+        console.log(score);
         dialog.showModal();
     }
     return form.checkValidity();
+}
+
+function scoreUp() {
+    score += 10;
+}
+
+function countError() {
+    errors += 1;
 }
