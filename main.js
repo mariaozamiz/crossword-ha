@@ -16,12 +16,16 @@ let crossword = JSON.parse(localStorage.getItem('crossword')) || {};
 let timer;
 let errors = JSON.parse(localStorage.getItem('errors')) || 0;
 let score = JSON.parse(localStorage.getItem('score')) || 0;
+let cluesData;
 
 const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
 const table = document.querySelector('.table');
 const cells = document.querySelectorAll('.letter');
 const clues = document.querySelectorAll('.clue');
+const acrossClueList = document.querySelector('.clues-across');
+const downClueList = document.querySelector('.clues-down');
+const clueBox = document.querySelector('.clue-box');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
 const clearBtn = document.querySelector('.btn-clear');
@@ -53,8 +57,9 @@ cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 startGame();
 
 function startGame() {
-    //check and paint localStorage data in DOM
+    fetchClues();
     if (Object.keys(crossword).length > 0) {
+        //check and paint localStorage data in DOM
         const keysArr = Object.keys(crossword);
         keysArr.forEach((key) => {
             let cell = document.getElementById(key);
@@ -217,6 +222,40 @@ function getPreviousCell(id) {
     return document.getElementById(cellId);
 }
 
+/******************
+ *  Fetch clues  *
+ *******************/
+
+function fetchClues() {
+    fetch('clues.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            cluesData = data;
+            paintClueList('across');
+            paintClueList('down');
+        });
+}
+
+function paintClue(num) {
+    clueBox.innerHTML = `${num}. ${cluesData[across ? 'across' : 'down'][num]}`;
+}
+
+function paintClueList(clueDirection) {
+    const list = clueDirection === 'across' ? acrossClueList : downClueList;
+    list.innerHTML = `<h2><strong>${
+        clueDirection === 'across' ? 'Horizontales' : 'Verticales'
+    }</strong></h2>`;
+    for (const num in cluesData[clueDirection]) {
+        let newLi = document.createElement('li');
+        newLi.setAttribute('class', 'clue');
+        newLi.setAttribute(`data-${clueDirection}`, num);
+        newLi.innerHTML = `${num}. ${cluesData[clueDirection][num]}`;
+        list.appendChild(newLi);
+    }
+}
+
 /************************************
  *  Cell direction & highlighting   *
  ************************************/
@@ -230,15 +269,17 @@ function handleClick(e) {
 
 function handleFocus(e) {
     removeHighligh();
-    let selector = `[data-across="${e.target.dataset.across}"]`;
+    let selector = `[data-across="${e.target.dataset.across}"]`,
+        number = parseInt(e.target.dataset.across);
     if (!across) {
         selector = `[data-down="${e.target.dataset.down}"]`;
+        number = parseInt(e.target.dataset.down);
     }
-    addHighlight(selector);
+    addHighlight(selector, number);
     currentCellId = e.target.id;
 }
 
-function addHighlight(selector) {
+function addHighlight(selector, clueNum) {
     // at cells
     const cells = document.querySelectorAll(`input${selector}`);
     cells.forEach((cell) => {
@@ -251,8 +292,11 @@ function addHighlight(selector) {
     if (clue) {
         clueText = clue.innerHTML;
         clue.innerHTML = '<mark class="mark">' + clueText + '</mark>';
-        clue.scrollIntoView({ block: 'center' });
+        if (window.innerWidth > 1200) {
+            clue.scrollIntoView({ block: 'center' });
+        }
     }
+    paintClue(clueNum);
 }
 
 function removeHighligh() {

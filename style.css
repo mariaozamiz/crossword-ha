@@ -129,6 +129,11 @@ ul {
     font-family: Archia, Helvetica, Arial, sans-serif;
 }
 
+.clue-box {
+    font-size: 1.3rem;
+    padding: 0 1em;
+}
+
 .btn-group {
     margin: 2.5rem auto 0.5rem;
     display: flex;
@@ -160,13 +165,7 @@ ul {
 }
 
 .clues {
-    margin: 30px 3rem;
-    align-content: center;
-    max-height: 800px;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    color: var(--blue);
-    font-family: var(--fontsans);
+    display: none;
 }
 
 .clue {
@@ -194,7 +193,7 @@ mark {
         font-size: 2rem;
     }
     .clues {
-        padding: 0.5rem 3rem;
+        display: none;
     }
     .word-number {
         font-size: 0.6rem;
@@ -203,7 +202,7 @@ mark {
         font-size: 1.5rem;
     }
 }
-@media all and (min-width: 1280px) {
+@media all and (min-width: 1200px) {
     .body {
         margin: 0 auto;
         width: 100%;
@@ -219,8 +218,15 @@ mark {
         flex-basis: 40%;
     }
     .clues {
+        display: block;
+        margin: 30px 3rem;
+        align-content: center;
+        max-height: 800px;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        color: var(--blue);
+        font-family: var(--fontsans);
         flex-basis: 60%;
-        order: -1;
         padding: 0.5rem 0 0.5rem 5rem;
         font-size: 20px;
     }
