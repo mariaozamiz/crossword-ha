@@ -4,9 +4,6 @@
  *       Variables       *
  *************************/
 
-const maxId = 168;
-let firstIdCell = 2;
-let currentCellId = '';
 let errorShown = false;
 let across = true;
 let clueText;
@@ -129,14 +126,10 @@ function saveCrossword(e) {
 
 function handleWriting(e) {
     saveCrossword(e);
-    console.log('Crossword salvado');
     checkInput(e);
-    console.log('input checkeada');
     if (checkForm()) {
-        console.log('Acabei');
         return;
     }
-    console.log('Non debimos acabar');
     if (!start) {
         startTimer();
     }
@@ -261,6 +254,7 @@ function handleClick(e) {
         across = !across;
         handleFocus(e);
     }
+    paintClue(across ? e.target.dataset.across : e.target.dataset.down);
 }
 
 function handleFocus(e) {
