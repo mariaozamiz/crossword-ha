@@ -22,9 +22,6 @@ const minutes = document.querySelector('.minutes');
 const seconds = document.querySelector('.seconds');
 const table = document.querySelector('.table');
 const cells = document.querySelectorAll('.letter');
-const clues = document.querySelectorAll('.clue');
-const acrossClueList = document.querySelector('.clues-across');
-const downClueList = document.querySelector('.clues-down');
 const clueBox = document.querySelector('.clue-box');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
@@ -275,16 +272,6 @@ function addHighlight(selector, clueNum) {
         cell.classList.add('highlight');
         cell.parentElement.classList.add('highlight');
     });
-
-    // at clue
-    const clue = document.querySelector(`li${selector}`);
-    if (clue) {
-        clueText = clue.innerHTML;
-        clue.innerHTML = '<mark class="mark">' + clueText + '</mark>';
-        if (window.innerWidth > 1200) {
-            clue.scrollIntoView({ block: 'center' });
-        }
-    }
     paintClue(clueNum);
 }
 
@@ -292,11 +279,6 @@ function removeHighligh() {
     //from crossword cells
     const highlightCell = document.querySelectorAll('.highlight');
     highlightCell.forEach((cell) => cell.classList.remove('highlight'));
-    //from clue
-    const highlightClue = document.querySelector('.mark');
-    if (highlightClue) {
-        highlightClue.parentElement.innerHTML = clueText;
-    }
 }
 
 /*************************

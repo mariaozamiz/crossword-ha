@@ -1,6 +1,7 @@
 :root {
     --green: #eef5dc;
     --blue: #063477;
+    --fadeblue: #6580aa;
     --white: #ffffff;
     --highlighter: #c3effc;
     --colorerror: #063477;
@@ -38,17 +39,25 @@ ul {
 
 .title {
     font-family: var(--fontserif);
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 .text {
     font-family: var(--fontsans);
 }
 
+.hero {
+    width: 100%;
+    height: 20rem;
+    background: url('./assets/img/las-lanzas.jpg') center no-repeat;
+    background-size: cover;
+    margin: 0.5rem 0 2rem;
+}
+
 .main {
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto 4rem;
 }
 
 .dialog {
@@ -98,12 +107,12 @@ ul {
 }
 
 .cell {
-    border: 1px solid var(--blue);
+    border: 1px solid var(--fadeblue);
     background-color: var(--white);
 }
 
 .cell-black {
-    background-color: var(--blue);
+    background-color: var(--fadeblue);
 }
 
 .word-number {
@@ -112,7 +121,7 @@ ul {
     vertical-align: top;
     position: fixed;
     z-index: 1;
-    color: var(--blue);
+    color: var(--fadeblue);
     font-family: var(--fontsans);
     position: absolute;
 }
@@ -130,8 +139,8 @@ ul {
 }
 
 .clue-box {
-    font-size: 1.3rem;
-    padding: 0 1em;
+    font-size: 1rem;
+    height: 1.5rem;
 }
 
 .btn-group {
@@ -159,7 +168,7 @@ ul {
     transform: translate(2px, 2px);
 }
 
-:invalid {
+.letter:invalid {
     /*By default, --colorerror is blue. Changes to red when the user clicks "show errors" button */
     color: var(--colorerror);
 }
@@ -186,34 +195,46 @@ mark {
     .letter {
         height: 2.5rem;
         width: 2.5rem;
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     .word-number {
         font-size: 0.6rem;
     }
     .timer {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 }
 @media all and (min-width: 1200px) {
     .body {
         margin: 0 auto;
         width: 100%;
+        font-size: 14px;
     }
     .header {
-        padding: 1.5rem 0 3rem 5rem;
-    }
-    .main {
-        display: flex;
-        flex-direction: row;
-    }
-    .form {
-        flex-basis: 40%;
+        padding: 1.5rem 0 1.5rem 5rem;
+        margin-left: 35%;
     }
 
+    .form-panel {
+        margin-left: 35%;
+        padding: 0 9rem;
+    }
+
+    .timer {
+        font-size: 1rem;
+    }
+
+    .hero {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        width: 35%;
+        height: 100vh;
+    }
     .letter {
-        height: 3rem;
-        width: 3rem;
-        font-size: 2rem;
+        height: 2rem;
+        width: 2rem;
+        font-size: 1.5rem;
     }
 }
