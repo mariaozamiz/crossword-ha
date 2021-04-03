@@ -26,7 +26,6 @@ const clueBox = document.querySelector('.clue-box');
 const checkBtn = document.querySelector('.btn-check');
 const solveBtn = document.querySelector('.btn-solve');
 const clearBtn = document.querySelector('.btn-clear');
-const shareBtn = document.querySelector('.btn-share');
 const closeBtn = document.querySelector('.dialog-close-btn');
 const dialog = document.querySelector('.dialog');
 dialogPolyfill.registerDialog(dialog);
@@ -43,7 +42,6 @@ table.addEventListener('keyup', handleKeyUp);
 checkBtn.addEventListener('click', showErrors);
 solveBtn.addEventListener('click', solveCrossword);
 clearBtn.addEventListener('click', clearGame);
-shareBtn.addEventListener('click', shareOnTwitter);
 closeBtn.addEventListener('click', () => dialog.close());
 cells.forEach((cell) => cell.addEventListener('focus', handleFocus));
 
@@ -102,8 +100,11 @@ function clearGame() {
     setTime();
 }
 
-function shareOnTwitter() {
-    console.log('compartes');
+function setTwitterSharing() {
+    const shareBtn = document.querySelector('.btn-share');
+    let myScore = scoreText.innerHTML;
+    const tweet = `He terminado el crucigrama de @HistoriaArteWeb y he alcanzado el nivel: ¡${myScore}!`;
+    shareBtn.href = `http://twitter.com/share?text=${tweet}&user_mentions=HistoriaArteWeb&url=${window.location.href}`;
 }
 
 /*************************
@@ -269,7 +270,6 @@ function addHighlight(selector, clueNum) {
     // at cells
     const cells = document.querySelectorAll(`input${selector}`);
     cells.forEach((cell) => {
-        cell.classList.add('highlight');
         cell.parentElement.classList.add('highlight');
     });
     paintClue(clueNum);
@@ -326,6 +326,7 @@ function scoreDown() {
 function checkForm() {
     if (form.checkValidity()) {
         console.log(score);
+        setTwitterSharing();
         dialog.showModal();
     }
     return form.checkValidity();

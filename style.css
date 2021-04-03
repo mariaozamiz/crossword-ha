@@ -3,10 +3,10 @@
     --blue: #063477;
     --fadeblue: #6580aa;
     --white: #ffffff;
-    --highlighter: #c3effc;
     --colorerror: #063477;
     --fontserif: Solitas, Cambria, Georgia, serif;
     --fontsans: Archia, Helvetica, Arial, sans-serif;
+    --highlighter: #c3effc;
 }
 
 html {
@@ -15,7 +15,8 @@ html {
     color: var(--blue);
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-size: 14px;
+    font-family: var(--fontsans);
 }
 
 ul {
@@ -39,16 +40,12 @@ ul {
 
 .title {
     font-family: var(--fontserif);
-    font-size: 2rem;
-}
-
-.text {
-    font-family: var(--fontsans);
+    font-size: 2.3rem;
 }
 
 .hero {
     width: 100%;
-    height: 20rem;
+    height: 15rem;
     background: url('./assets/img/las-lanzas.jpg') center no-repeat;
     background-size: cover;
     margin: 0.5rem 0 2rem;
@@ -64,11 +61,36 @@ ul {
     background-color: var(--green);
     border: 1px solid var(--blue);
     color: var(--blue);
-    font-family: var(--fontsans);
     display: flex;
     flex-direction: column;
     text-align: center;
     z-index: 2;
+    padding: 0 1.5rem 1.5rem;
+    width: 50vh;
+}
+
+.dialog > h1 {
+    font-size: 1.4rem;
+    margin: 3rem auto 1rem;
+}
+
+.dialog > p {
+    margin: 0.2rem 0 2rem;
+    font-size: 0.9rem;
+}
+
+.dialog > span:not(.score) {
+    font-size: 1rem;
+    margin: 0 0 1rem;
+}
+
+.score {
+    font-weight: 700;
+}
+
+.btn-share {
+    text-decoration: none;
+    font-size: 0.8rem;
 }
 
 .dialog-close-btn {
@@ -86,14 +108,13 @@ ul {
     padding: 1em;
 }
 
-.btn-share {
-    max-width: 5rem;
+.btn {
+    width: auto;
     margin: auto;
 }
 
 .timer {
     position: relative;
-    font-family: var(--fontsans);
     text-align: center;
     font-size: 1.1rem;
     margin-right: 0.3rem;
@@ -122,25 +143,31 @@ ul {
     position: fixed;
     z-index: 1;
     color: var(--fadeblue);
-    font-family: var(--fontsans);
     position: absolute;
 }
 
 .letter {
-    height: 1.4rem;
-    width: 1.4rem;
+    background: none;
+    height: 1.8rem;
+    width: 1.8rem;
     border: none;
     box-shadow: none;
     text-align: center;
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: 1.4rem;
     color: var(--blue);
-    font-family: Archia, Helvetica, Arial, sans-serif;
+}
+
+.highlight {
+    background-color: var(--highlighter);
 }
 
 .clue-box {
-    font-size: 1rem;
-    height: 1.5rem;
+    font-size: 1.1rem;
+    height: 2rem;
+    line-height: 1.2rem;
+    padding: 0 1rem;
+    text-align: center;
 }
 
 .btn-group {
@@ -152,7 +179,6 @@ ul {
 .btn {
     background-color: var(--white);
     color: var(--blue);
-    font-family: var(--fontsans);
     border: none;
     border-radius: 0.3rem;
     box-shadow: 0.3rem 0.3rem 0 var(--blue);
@@ -169,7 +195,7 @@ ul {
 }
 
 .letter:invalid {
-    /*By default, --colorerror is blue. Changes to red when the user clicks "show errors" button */
+    /*By default, --colorerror is blue. Changes to red when "show errors" button is pressed */
     color: var(--colorerror);
 }
 
@@ -177,51 +203,19 @@ ul {
     font-family: var(--fontserif);
 }
 
-.highlight {
-    background-color: var(--highlighter);
-}
-
-mark {
-    background-color: var(--highlighter);
-}
-
 @media all and (min-width: 768px) {
+    html {
+        font-size: 18px;
+    }
+
     .wrapper {
-        margin: 0 5.5rem;
-    }
-    .header {
-        padding: 1.5rem 3rem;
-    }
-    .letter {
-        height: 2.5rem;
-        width: 2.5rem;
-        font-size: 1.8rem;
-    }
-    .word-number {
-        font-size: 0.6rem;
-    }
-    .timer {
-        font-size: 1.3rem;
+        margin: 0 2.5rem;
     }
 }
 @media all and (min-width: 1200px) {
-    .body {
-        margin: 0 auto;
-        width: 100%;
-        font-size: 14px;
-    }
-    .header {
-        padding: 1.5rem 0 1.5rem 5rem;
-        margin-left: 35%;
-    }
-
+    .header,
     .form-panel {
-        margin-left: 35%;
-        padding: 0 9rem;
-    }
-
-    .timer {
-        font-size: 1rem;
+        margin-left: 40%;
     }
 
     .hero {
@@ -231,10 +225,5 @@ mark {
         margin: 0;
         width: 35%;
         height: 100vh;
-    }
-    .letter {
-        height: 2rem;
-        width: 2rem;
-        font-size: 1.5rem;
     }
 }
