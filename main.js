@@ -131,10 +131,14 @@ function saveCrossword(e) {
 
 function handleWriting(e) {
     saveCrossword(e);
+    console.log('Crossword salvado');
     checkInput(e);
+    console.log('input checkeada');
     if (checkForm()) {
+        console.log('Acabei');
         return;
     }
+    console.log('Non debimos acabar');
     if (!start) {
         startTimer();
     }
@@ -211,12 +215,13 @@ function getNextCell(id) {
 function getPreviousCell(id) {
     let cellId = parseInt(id);
     if (across) {
-        cellId = (cellId % maxId) - 1;
+        cellId -= 1;
+        if (cellId < 1) cellId = maxId;
     } else {
         cellId -= 12;
         if (cellId <= 0) {
             cellId += maxId - 1;
-            if (cellId == 156) cellId = 168;
+            if (cellId == 156) cellId = maxId;
         }
     }
     return document.getElementById(cellId);
@@ -233,27 +238,11 @@ function fetchClues() {
         })
         .then(function (data) {
             cluesData = data;
-            paintClueList('across');
-            paintClueList('down');
         });
 }
 
 function paintClue(num) {
     clueBox.innerHTML = `${num}. ${cluesData[across ? 'across' : 'down'][num]}`;
-}
-
-function paintClueList(clueDirection) {
-    const list = clueDirection === 'across' ? acrossClueList : downClueList;
-    list.innerHTML = `<h2><strong>${
-        clueDirection === 'across' ? 'Horizontales' : 'Verticales'
-    }</strong></h2>`;
-    for (const num in cluesData[clueDirection]) {
-        let newLi = document.createElement('li');
-        newLi.setAttribute('class', 'clue');
-        newLi.setAttribute(`data-${clueDirection}`, num);
-        newLi.innerHTML = `${num}. ${cluesData[clueDirection][num]}`;
-        list.appendChild(newLi);
-    }
 }
 
 /************************************

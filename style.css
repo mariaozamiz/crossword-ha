@@ -164,10 +164,6 @@ ul {
     color: var(--colorerror);
 }
 
-.clues {
-    display: none;
-}
-
 .clue {
     font-family: var(--fontserif);
 }
@@ -192,9 +188,6 @@ mark {
         width: 2.5rem;
         font-size: 2rem;
     }
-    .clues {
-        display: none;
-    }
     .word-number {
         font-size: 0.6rem;
     }
@@ -217,19 +210,7 @@ mark {
     .form {
         flex-basis: 40%;
     }
-    .clues {
-        display: block;
-        margin: 30px 3rem;
-        align-content: center;
-        max-height: 800px;
-        overflow-y: scroll;
-        scroll-behavior: smooth;
-        color: var(--blue);
-        font-family: var(--fontsans);
-        flex-basis: 60%;
-        padding: 0.5rem 0 0.5rem 5rem;
-        font-size: 20px;
-    }
+
     .letter {
         height: 3rem;
         width: 3rem;
