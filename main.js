@@ -138,15 +138,38 @@ function handleWriting(e) {
         return;
     }
 
-    const td = e.target.parentElement;
-    const ref = getReferences(td);
-    const cells = across ? ref.x || ref.y : ref.y || ref.x;
-    const index = cells.indexOf(td);
+    let td = e.target.parentElement;
+    if (across) {
+        while (td.nextElementSibling) {
+            td = td.nextElementSibling;
+            if (!td.classList.contains('cell-black') && !td.children[0].value) {
+                td.querySelector('input').focus();
+                return;
+            }
+        }
+    }
 
-    if (index !== -1 && cells[index + 1]) {
-        cells[index + 1].querySelector('input').focus();
+    if (!across) {
+        const index = td.cellIndex;
+        let cell = td;
+        let tr = td.parentElement;
+        while (tr.nextElementSibling) {
+            tr = tr.nextElementSibling;
+            cell = tr.children[index];
+            if (
+                !cell.classList.contains('cell-black') &&
+                !cell.children[0].value
+            ) {
+                cell.querySelector('input').focus();
+                return;
+            }
+        }
     }
 }
+
+/*************************
+ *  keyboard behavior   *
+ *************************/
 
 function handleKeyDown(e) {
     const td = e.target.parentElement;
@@ -249,7 +272,6 @@ function paintClue(num) {
     } else {
         clueBox.innerHTML = '';
     }
-    console.log('paintclue');
 }
 
 /************************************
