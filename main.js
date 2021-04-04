@@ -407,6 +407,7 @@ function checkForm() {
     if (form.checkValidity()) {
         console.log(score);
         setTwitterSharing();
+        clearInterval(timer);
         dialog.showModal();
     }
     return form.checkValidity();
