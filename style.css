@@ -140,8 +140,6 @@ ul {
     text-align: right;
     font-size: 0.4rem;
     vertical-align: top;
-    position: fixed;
-    z-index: 1;
     color: var(--fadeblue);
     position: absolute;
 }
@@ -213,6 +211,10 @@ ul {
     }
 }
 @media all and (min-width: 1200px) {
+    html {
+        font-size: 16px;
+    }
+
     .header,
     .form-panel {
         margin-left: 40%;
@@ -222,6 +224,7 @@ ul {
         position: absolute;
         top: 0;
         left: 0;
+        bottom: 0;
         margin: 0;
         width: 35%;
         height: 100vh;
