@@ -242,7 +242,14 @@ function fetchClues() {
 }
 
 function paintClue(num) {
-    clueBox.innerHTML = `${num}. ${cluesData[across ? 'across' : 'down'][num]}`;
+    if (num) {
+        clueBox.innerHTML = `${num}. ${
+            cluesData[across ? 'across' : 'down'][num]
+        }`;
+    } else {
+        clueBox.innerHTML = '';
+    }
+    console.log('paintclue');
 }
 
 /************************************
@@ -254,7 +261,6 @@ function handleClick(e) {
         across = !across;
         handleFocus(e);
     }
-    paintClue(across ? e.target.dataset.across : e.target.dataset.down);
 }
 
 function handleFocus(e) {
@@ -266,21 +272,16 @@ function handleFocus(e) {
 
     removeHighligh();
     const ref = getReferences(td);
-    const cells = across ? ref.x || ref.y : ref.y || ref.x;
+    let cells = across ? ref.x : ref.y;
+    if (!cells) {
+        cells = ref.x || ref.y;
+        across = !across;
+    }
 
     cells.forEach((cell) => {
         cell.classList.add('highlight');
-        cell.querySelector('input').classList.add('highlight');
     });
-}
-
-function addHighlight(selector, clueNum) {
-    // at cells
-    const cells = document.querySelectorAll(`input${selector}`);
-    cells.forEach((cell) => {
-        cell.parentElement.classList.add('highlight');
-    });
-    paintClue(clueNum);
+    paintClue(across ? e.target.dataset.across : e.target.dataset.down);
 }
 
 function getReferences(td) {
