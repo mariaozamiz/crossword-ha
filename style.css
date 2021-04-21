@@ -155,12 +155,13 @@ tr {
     vertical-align: top;
     color: var(--fadeblue);
     position: absolute;
+    padding: 0.05rem 0 0 0.05rem;
 }
 
 .letter {
     background: none;
-    height: 1.7rem;
-    width: 1.7rem;
+    height: 1.8rem;
+    width: 1.8rem;
     border: none;
     box-shadow: none;
     text-align: center;
@@ -223,6 +224,11 @@ tr {
         font-size: 18px;
     }
 
+    .letter {
+        height: 2rem;
+        width: 2rem;
+    }
+
     .wrapper {
         margin: 0 5rem;
     }
@@ -245,10 +251,5 @@ tr {
         margin: 0;
         width: 35%;
         height: 100vh;
-    }
-
-    .letter {
-        height: 2rem;
-        width: 2rem;
     }
 }
