@@ -25,9 +25,10 @@ const solveBtn = document.querySelector('.btn-solve');
 const clearBtn = document.querySelector('.btn-clear');
 const closeBtn = document.querySelector('.dialog-close-btn');
 const dialog = document.querySelector('.dialog');
-dialogPolyfill.registerDialog(dialog);
 const form = document.querySelector('.form');
-const scoreText = document.querySelector('.score');
+const scoreLevel = document.querySelector('.score');
+const scoreText = document.querySelector('.score-text');
+dialogPolyfill.registerDialog(dialog);
 
 /*************************
  *       Listeners       *
@@ -99,8 +100,8 @@ function clearGame() {
 
 function setTwitterSharing() {
     const shareBtn = document.querySelector('.btn-share');
-    let myScore = scoreText.innerHTML;
-    const tweet = `He terminado el crucigrama de @HistoriaArteWeb y he alcanzado el nivel: ¡${myScore}!`;
+    let myScore = scoreLevel.innerHTML;
+    const tweet = `He terminado el crucigrama de @HistoriaArteWeb y he alcanzado el nivel: ${myScore}`;
     shareBtn.href = `http://twitter.com/share?text=${tweet}&user_mentions=HistoriaArteWeb&url=${window.location.href}`;
 }
 
@@ -431,6 +432,7 @@ function checkForm() {
         console.log(score);
         setTwitterSharing();
         clearInterval(timer);
+        writeScore();
         dialog.showModal();
     }
     return form.checkValidity();
@@ -442,4 +444,31 @@ function scoreUp() {
 
 function countError() {
     errors += 1;
+}
+
+function writeScore() {
+    if (score >= 1300) {
+        scoreLevel.innerHTML = `🖼️ obra maestra blindada`;
+        scoreText.innerHTML = `Tus conocimientos sobre Historia y Arte son equiparables al de las personas que crearon este crucigrama. Respect`;
+    }
+    if (score >= 1000 && score < 1300) {
+        scoreLevel.innerHTML = `❓ obra de autoría desconocida`;
+        scoreText.innerHTML = `Tienes muchísimo valor pero no te sabes sacar partido`;
+    }
+    if (score >= 800 && score < 1000) {
+        scoreLevel.innerHTML = `🐴 estatua equestre`;
+        scoreText.innerHTML = `Están muy bien consideradas. También están recubiertas de caca de paloma`;
+    }
+    if (score >= 500 && score < 800) {
+        scoreLevel.innerHTML = `🥫 lata de tomate`;
+        scoreText.innerHTML = `Tus conocimientos sobre arte son tan básicos como una lata de conservas, pero tienes el potencial de convertirte en un icono de tu generación`;
+    }
+    if (score >= 200 && score < 500) {
+        scoreLevel.innerHTML = `🥴 Eccehomo`;
+        scoreText.innerHTML = `No tendremos en cuenta tus errores, solo tu buena intención al hacer el crucigrama`;
+    }
+    if (score < 200) {
+        scoreLevel.innerHTML = `🔑 Llavero de la tienda de regalos`;
+        scoreText.innerHTML = `No acostumbras poner los pies en un museo pero como este souvenir, ¡das el pego!`;
+    }
 }
