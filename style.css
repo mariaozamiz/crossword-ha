@@ -155,7 +155,7 @@ tr {
     vertical-align: top;
     color: var(--fadeblue);
     position: absolute;
-    padding: 0.05rem 0 0 0.05rem;
+    padding: 0.1rem 0 0 0.1rem;
 }
 
 .letter {
