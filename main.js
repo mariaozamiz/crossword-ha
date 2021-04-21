@@ -35,6 +35,7 @@ dialogPolyfill.registerDialog(dialog);
  *************************/
 
 table.addEventListener('mousedown', handleClick);
+table.addEventListener('touchstart', handleClick);
 table.addEventListener('input', handleWriting);
 table.addEventListener('keydown', handleKeyDown);
 checkBtn.addEventListener('click', showErrors);
@@ -280,6 +281,9 @@ function paintClue(num) {
  ************************************/
 
 function handleClick(e) {
+    if (e.type === 'touchstart') {
+        e.stopPropagation();
+    }
     if (document.activeElement === e.target) {
         across = !across;
         handleFocus(e);
