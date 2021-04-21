@@ -461,7 +461,7 @@ function writeScore() {
     }
     if (score >= 800 && score < 1000) {
         scoreLevel.innerHTML = `🐴 estatua equestre`;
-        scoreText.innerHTML = `Están muy bien consideradas. También están recubiertas de caca de paloma`;
+        scoreText.innerHTML = `Están muy bien consideradas. También están cubiertas de caca de paloma`;
     }
     if (score >= 500 && score < 800) {
         scoreLevel.innerHTML = `🥫 lata de tomate`;
