@@ -135,37 +135,59 @@ function handleWriting(e) {
     if (!start) {
         startTimer();
     }
-
+    // don't move back after deleting a letter
     if (!e.target.value) {
         return;
     }
 
     let td = e.target.parentElement;
-    if (across) {
-        while (td.nextElementSibling) {
-            td = td.nextElementSibling;
-            if (!td.classList.contains('cell-black') && !td.children[0].value) {
-                td.querySelector('input').focus();
-                return;
-            }
-        }
-    }
+    getNextInput(td).focus();
+}
 
-    if (!across) {
-        const index = td.cellIndex;
-        let cell = td;
-        let tr = td.parentElement;
-        while (tr.nextElementSibling) {
-            tr = tr.nextElementSibling;
-            cell = tr.children[index];
-            if (
-                !cell.classList.contains('cell-black') &&
-                !cell.children[0].value
-            ) {
-                cell.querySelector('input').focus();
-                return;
+function getNextInput(currentCell) {
+    let currentInput = currentCell.querySelector('input');
+    const initialId = currentInput.id;
+    if (across) {
+        do {
+            if (currentCell.nextElementSibling) {
+                currentCell = currentCell.nextElementSibling;
+            } else {
+                // change row
+                let tr = currentCell.parentElement;
+                if (tr.nextElementSibling) {
+                    tr = tr.nextElementSibling;
+                } else {
+                    // go to first row again
+                    tr = tr.parentElement.children[0];
+                }
+                currentCell = tr.children[0];
             }
-        }
+            currentInput = currentCell.querySelector('input');
+        } while (
+            currentCell.classList.contains('cell-black') ||
+            (currentInput.id !== initialId &&
+                (currentInput.value || !currentInput.dataset.across))
+        );
+        return currentInput;
+    } else {
+        let index = currentCell.cellIndex;
+        let tr = currentCell.parentElement;
+        do {
+            if (tr.nextElementSibling) {
+                tr = tr.nextElementSibling;
+            } else {
+                // change column
+                tr = tr.parentElement.children[0];
+                index = (index + 1) % tr.children.length;
+            }
+            currentCell = tr.children[index];
+            currentInput = currentCell.querySelector('input');
+        } while (
+            currentCell.classList.contains('cell-black') ||
+            (currentInput.id !== initialId &&
+                (currentInput.value || !currentInput.dataset.down))
+        );
+        return currentInput;
     }
 }
 
@@ -252,9 +274,9 @@ function handleKeyDown(e) {
     }
 }
 
-/******************
- *  Fetch clues  *
- *******************/
+/*************************
+ *  Fetch & paint clues  *
+ *************************/
 
 function fetchClues() {
     fetch('clues.json')
@@ -308,8 +330,18 @@ function handleFocus(e) {
     cells.forEach((cell) => {
         cell.classList.add('highlight');
     });
+
     paintClue(across ? e.target.dataset.across : e.target.dataset.down);
 }
+
+function removeHighligh() {
+    const highlightCell = document.querySelectorAll('.highlight');
+    highlightCell.forEach((cell) => cell.classList.remove('highlight'));
+}
+
+/********************
+ *  Get references   *
+ **********************/
 
 function getReferences(td) {
     const x = getXCells(td);
@@ -383,12 +415,6 @@ function getYCells(td) {
     return cells;
 }
 
-function removeHighligh() {
-    //from crossword cells
-    const highlightCell = document.querySelectorAll('.highlight');
-    highlightCell.forEach((cell) => cell.classList.remove('highlight'));
-}
-
 /*************************
  *         Timer         *
  *************************/
@@ -421,7 +447,9 @@ function checkInput(e) {
     if (e.target.validity.valid) {
         scoreUp();
     } else {
-        countError();
+        if (e.target.value) {
+            countError();
+        }
         if (errorShown) scoreDown();
     }
 }
