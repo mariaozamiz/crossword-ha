@@ -456,8 +456,8 @@ function writeScore() {
         scoreText.innerHTML = `Tus conocimientos sobre Historia y Arte son equiparables al de las personas que crearon este crucigrama. Respect`;
     }
     if (score >= 1000 && score < 1300) {
-        scoreLevel.innerHTML = `❓ obra de autoría desconocida`;
-        scoreText.innerHTML = `Tienes muchísimo valor pero no te sabes sacar partido`;
+        scoreLevel.innerHTML = `❓ Goya sin firmar`;
+        scoreText.innerHTML = `Habrá quien diga que no lo has hecho tú, pero has terminado este crucigrama con maestría`;
     }
     if (score >= 800 && score < 1000) {
         scoreLevel.innerHTML = `🐴 estatua equestre`;
@@ -465,11 +465,11 @@ function writeScore() {
     }
     if (score >= 500 && score < 800) {
         scoreLevel.innerHTML = `🥫 lata de tomate`;
-        scoreText.innerHTML = `Tus conocimientos sobre arte son tan básicos como una lata de conservas, pero tienes el potencial de convertirte en un icono de tu generación`;
+        scoreText.innerHTML = `Tus conocimientos sobre arte pueden parecer básicos, pero tienes el potencial de convertirte en un icono de tu generación`;
     }
     if (score >= 200 && score < 500) {
         scoreLevel.innerHTML = `🥴 Eccehomo`;
-        scoreText.innerHTML = `No tendremos en cuenta tus errores, solo tu buena intención al hacer el crucigrama`;
+        scoreText.innerHTML = `A pesar de tus errores, valoramos la buena intención que tenías al empezar el crucigrama`;
     }
     if (score < 200) {
         scoreLevel.innerHTML = `🔑 Llavero de la tienda de regalos`;
