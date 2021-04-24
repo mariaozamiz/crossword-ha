@@ -461,7 +461,6 @@ function scoreDown() {
 
 function checkForm() {
     if (form.checkValidity()) {
-        console.log(score);
         setTwitterSharing();
         clearInterval(timer);
         writeScore();
