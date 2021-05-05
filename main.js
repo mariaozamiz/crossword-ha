@@ -35,7 +35,7 @@ dialogPolyfill.registerDialog(dialog);
  *************************/
 
 table.addEventListener('mousedown', handleClick);
-table.addEventListener('touchstart', handleClick);
+table.addEventListener('touchstart', handleClick, { passive: true });
 table.addEventListener('input', handleWriting);
 table.addEventListener('keydown', handleKeyDown);
 checkBtn.addEventListener('click', showErrors);
