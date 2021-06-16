@@ -4,6 +4,7 @@ Crossword HA! es un crucigrama digital para la web [Historia Arte (HA!)](https:/
 
 El contenido del crucigrama ha sido creado por Miguel, y yo le he dado forma a través de JavaScript vanilla con la guía de Óscar. El juego cuenta ya con algunas funcionalidades muy interesantes que puedes leer más abajo.
 
+![imagen](https://repository-images.githubusercontent.com/327085083/d8834e00-a2bb-11eb-95fd-66baefd8dcf2)
 
 ## Tecnologías utilizadas
 
